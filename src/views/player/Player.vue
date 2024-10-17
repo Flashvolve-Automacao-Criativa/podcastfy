@@ -117,6 +117,8 @@ onMounted(async () => {
     align-items: center;
     padding: 6px;
     background-color: #001c7d;
+    max-height: 60vh;
+    overflow: hidden;
 }
 
 .main-container .hamburguer-button {
@@ -163,6 +165,12 @@ onMounted(async () => {
 .playlist-content {
     width: 100%;
     min-width: 300px;
+}
+
+@media screen and (max-width: 1600px) {
+    .main-container {
+        max-height: 80vh;
+    }
 }
 
 @media screen and (max-width: 768px) {
