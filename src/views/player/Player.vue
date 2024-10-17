@@ -14,13 +14,13 @@
         
         <n-space class="base-content">
             <n-spin :show="!currentTrack">
-                <n-space class="player-content" v-if="currentTrack">
-                    <n-image :src="currentTrack.cover" alt="Capa do Podcast" />
-                    <PlyrAudio :audio="currentTrack.src" @plyrInit="initializePlayer" />
+                <n-space class="player-content">
+                    <n-image :src="currentTrack?.cover" alt="Capa do Podcast" />
+                    <PlyrAudio :audio="currentTrack?.src" @plyrInit="initializePlayer" />
                     
                     <n-space class="current-track-info" vertical>
-                        <n-text class="title">{{ currentTrack.title }}</n-text>
-                        <n-text class="description">{{ currentTrack.artist }}</n-text>
+                        <n-text class="title">{{ currentTrack?.title }}</n-text>
+                        <n-text class="description">{{ currentTrack?.artist }}</n-text>
                     </n-space>
                 </n-space>
             </n-spin>
@@ -117,7 +117,6 @@ onMounted(async () => {
     align-items: center;
     padding: 10px;
     background-color: #001c7d;
-    border-radius: 8px;
 }
 
 .main-container .hamburguer-button {
@@ -137,6 +136,7 @@ onMounted(async () => {
     align-items: center;
     padding: 20px;
     background-color: #f1f1f1;
+    min-height: 10%;
 }
 
 .player-content .n-image {

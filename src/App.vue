@@ -29,13 +29,21 @@ const themeOverrides = ref({
 }
 
 body {
-  background-color: #f0f2f5;
-  max-height: 100vh;
+  height: 100vh;
+}
+
+.n-config-provider {
+  height: 100vh;
+  background: #001c7d;
 }
 
 .main {
+  position: absolute;
+  top: 8%;
+  left: calc(50% - 450px);
   max-width: 900px;
-  margin: 50px auto;
+  max-height: calc(65vh - 8%);
+  overflow: hidden !important;
 }
 
 ::-webkit-scrollbar {
@@ -49,6 +57,12 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(150, 136, 242, 0.8);
+}
+
+@media screen and (max-width: 1600px) {
+  .main {
+    max-height: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {
