@@ -168,7 +168,7 @@ onMounted(async () => {
 
 @media screen and (max-width: 768px) {
     .main-container {
-        margin: 10px;
+        margin: 0;
     }
 
     .main-container .hamburguer-button {

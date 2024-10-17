@@ -68,6 +68,7 @@ body {
 @media screen and (max-width: 768px) {
   .main {
     margin: 10px;
+    left: 0;
   }
 }
 </style>
