@@ -59,12 +59,13 @@ const playTrack = (track, index) => {
 
 <style scoped>
 .playlist-container {
-  height: 65vh;
+  height: 70vh;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 .track-item {
+  overflow: hidden;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }

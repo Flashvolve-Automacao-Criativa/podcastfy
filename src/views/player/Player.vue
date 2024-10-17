@@ -115,7 +115,7 @@ onMounted(async () => {
 <style scoped>
 .main-container {
     align-items: center;
-    padding: 10px;
+    padding: 6px;
     background-color: #001c7d;
 }
 
@@ -126,7 +126,7 @@ onMounted(async () => {
 .base-content {
     flex-flow: row nowrap !important;
     align-items: flex-start;
-    background-color: #ffffff;
+    background-color: #f1f1f1;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -163,7 +163,6 @@ onMounted(async () => {
 .playlist-content {
     width: 100%;
     min-width: 300px;
-    border-left: 1px solid #f1f1f1;
 }
 
 @media screen and (max-width: 768px) {
