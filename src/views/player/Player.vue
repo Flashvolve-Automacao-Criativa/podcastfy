@@ -1,7 +1,7 @@
 <template>
     <n-space class="main-container">
         <n-space justify="space-between">
-            <n-image 
+            <img 
                 src="https://cbmm.com/-/media/cbmm/images/logos/cbmm_logo-white-1.svg?extension=avif%2cwebp"
                 alt="Logo da Empresa"
                 style="width: 120px"
@@ -15,7 +15,7 @@
         <n-space class="base-content">
             <n-spin :show="!currentTrack">
                 <n-space class="player-content">
-                    <n-image :src="currentTrack?.cover" alt="Capa do Podcast" />
+                    <img :src="currentTrack?.cover" alt="Capa do Podcast" />
                     <PlyrAudio :audio="currentTrack?.src" @plyrInit="initializePlayer" />
                     
                     <n-space class="current-track-info" vertical>
@@ -139,7 +139,7 @@ onMounted(async () => {
     min-height: 10%;
 }
 
-.player-content .n-image {
+.player-content img {
     border-radius: 4px;
 }
 

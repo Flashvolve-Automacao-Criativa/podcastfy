@@ -12,7 +12,7 @@
         <n-space class="track-info" justify="space-between">
 
           <n-space vertical align="center">
-            <n-image :src="track.cover" alt="Cover" class="track-cover" />
+            <img :src="track.cover" alt="Cover" class="track-cover" />
             <n-text class="track-duration">{{ formatTime(track.duration) }}</n-text>
           </n-space>
 
