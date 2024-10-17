@@ -14,13 +14,16 @@
             <n-space align="center" class="track-content">
                 <n-space class="track-info" justify="space-between">
                     <n-space vertical align="center">
-                        <n-image :src="track.cover" alt="Cover" class="track-cover" />
-                        <n-text class="track-duration">{{ formatTime(track.duration) }}</n-text>
+                        <img :src="track.cover" alt="Cover" class="track-cover" />
                     </n-space>
                     
                     <n-space vertical>
                         <n-text class="track-title">{{ track.title }}</n-text>
                         <n-text class="track-artist">{{ track.artist }}</n-text>
+                    </n-space>
+                    
+                    <n-space>
+                        <n-text class="track-duration">{{ formatTime(track.duration) }}</n-text>
                     </n-space>
                 </n-space>
             </n-space>
@@ -86,6 +89,8 @@ const formatTime = (time) => {
 }
 
 .track-info {
+    display: grid !important;
+    grid-template-columns: 1fr 3fr 1fr;
     flex-flow: row nowrap !important;
     margin: 8px;
 }
