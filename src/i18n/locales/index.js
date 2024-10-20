@@ -1,9 +1,10 @@
 const loadAllLocalesMessages = async () => {
-    const modules = import.meta.blob('./*/**/*.js');
+    const modules = import.meta.glob('./*/**/*.js');
     const messages = {};
 
     for (const path in modules) {
         const [, locale, moduleName] = path.match(/\.\/([a-z]{2})\/(.*)\.js$/);
+        const module = await modules[path]();
 
         if (!messages[locale]) messages[locale] = {};
 
