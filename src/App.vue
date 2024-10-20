@@ -28,8 +28,8 @@ provide('player', {
   locale,
 });
 
-const changeLanguage = (language) => {
-  locale.value = language;
+function changeLanguage(lang) {
+  locale.value = lang;
 }
 </script>
 
