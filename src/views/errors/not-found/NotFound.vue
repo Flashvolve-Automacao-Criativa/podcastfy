@@ -31,7 +31,13 @@ function goHome() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f2f5;
+  background-color: #001c7d;
+}
+
+.n-result {
+  position: fixed;
+  top: calc(45% - 100px);
+  left: calc(50% - 200px);
 }
 
 .illustration {
