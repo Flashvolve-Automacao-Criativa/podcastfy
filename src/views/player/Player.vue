@@ -16,7 +16,7 @@
         <n-space class="base-content">
             <n-spin :show="!currentTrack">
                 <n-space class="player-content">
-                    <img :src="currentTrack?.cover" alt="Capa do Podcast" />
+                    <img :src="currentTrack?.cover || 'https://res.cloudinary.com/prime-arte/image/upload/v1729455131/santander/top3wcxdkwopa7kt6gpc.jpg'" alt="Current Cover Podcast" />
                     <PlyrAudio :audio="currentTrack?.src" @plyrInit="initializePlayer" />
                     
                     <n-space class="current-track-info" vertical>
@@ -24,7 +24,13 @@
                         <n-text class="description">{{ currentTrack?.artist }}</n-text>
                     </n-space>
                 </n-space>
+
+                <n-empty v-if="!fetchedTracks.length">
+                    <n-text>{{ t('pages.player.empty') }}</n-text>
+                </n-empty>
+                
             </n-spin>
+
             
             <n-space class="playlist-content" v-if="!isMobile">
                 <Playlist :tracks="fetchedTracks" @playTrack="playTrack" />
@@ -55,6 +61,9 @@ v-model:show="showMobilePlaylist"
 <script setup>
 import { computed, inject, onMounted, ref } from 'vue';
 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 import { useRoute } from 'vue-router';
 const route = useRoute();
 
@@ -80,10 +89,10 @@ const languages = {
         label: 'Português',
         flagUrl: 'https://goodies.icons8.com/web/common/header/flags/br.svg',
     },
-    es: {
-        label: 'Español',
-        flagUrl: 'https://goodies.icons8.com/web/common/header/flags/es.svg',
-    },
+    // es: {
+    //     label: 'Español',
+    //     flagUrl: 'https://goodies.icons8.com/web/common/header/flags/es.svg',
+    // },
 };
 
 const languageOptions = Object.keys(languages).map((key) => ({
