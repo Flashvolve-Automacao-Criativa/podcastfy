@@ -29,12 +29,12 @@ const useListTracks = () => {
      * @async
      * @returns {Promise<void>} Retorna uma Promise resolvida quando as faixas forem buscadas.
     */
-    const fetchTracks = async () => {
+    const fetchTracksByCompanyId = async (companyId) => {
         try {
-            const { data: tracks } = await supabase.from('tracks').select('*');
+            const { data: tracks, error } = await supabase.from('tracks').select('*').eq('company_id', companyId);
             fetchedTracks.value = tracks;
         } catch (error) {
-            handleRequestError('fetchTracks', error);
+            handleRequestError('fetchTracksByCompanyId', error);
         }
     }
 
@@ -56,7 +56,7 @@ const useListTracks = () => {
 
     return {
         fetchedTracks,
-        fetchTracks,
+        fetchTracksByCompanyId,
         fetchTrackByUid,
     };
 }

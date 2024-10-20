@@ -64,7 +64,7 @@ import PlyrAudio from './components/plyraudio/PlyrAudio.vue';
 import MobilePlaylist from './components/mobile-playlist/MobilePlaylist.vue';
 
 import useListTracks from './hooks/useListTracks';
-const { fetchedTracks, fetchTracks, fetchTrackByUid } = useListTracks(); 
+const { fetchedTracks, fetchTracksByCompanyId, fetchTrackByUid } = useListTracks(); 
 
 const emit = defineEmits([ 'updateLanguage']);
 
@@ -103,6 +103,7 @@ const changeLanguage = (lang) => {
     }
 };
 
+const currentConpanyId = ref(6);
 const currentUid = computed(() => route.params?.uid);
 
 const isMobile = computed(() => window.innerWidth <= 768);
@@ -156,7 +157,7 @@ const nextTrack = () => {
 const handleCloseMobilePlaylist = () => showMobilePlaylist.value = false;
 
 onMounted(async () => {
-    await fetchTracks();
+    await fetchTracksByCompanyId(currentConpanyId.value);
     currentTrack.value = currentUid.value ? await fetchTrackByUid(currentUid.value) : fetchedTracks.value[0];
 });
 </script>
