@@ -46,7 +46,7 @@ const useListTracks = () => {
     */
     const fetchTrackByUid = async (uid) => {
         try {
-            const { data: track } = await supabase.from('tracks').select('*').eq('uid', uid);
+            const track = fetchedTracks.value.filter(track => track.uid === uid);
             return track[0];
         } catch (error) {
             handleRequestError('fetchTrackByUid', error);
