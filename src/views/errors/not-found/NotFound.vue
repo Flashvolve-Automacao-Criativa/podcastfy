@@ -1,23 +1,25 @@
 <template>
   <div class="not-found-container">
-    <n-result
+      <n-result
       status="404"
-      title="Página não encontrada"
-      description="A página que você está procurando não existe."
-    >      
+      :title="t('not_found.title')"
+      :description="t('not_found.description')"
+      >      
       <template #footer>
-        <n-button type="primary" @click="goHome" class="animated-button">
-          Ir para a página inicial
-        </n-button>
+          <n-button type="primary" @click="goHome" class="animated-button">
+              {{ t('not_found.go_home') }}
+          </n-button>
       </template>
-    </n-result>
-  </div>
+  </n-result>
+</div>
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { NButton } from 'naive-ui';
 
+const { t } = useI18n();
 const router = useRouter();
 
 function goHome() {
@@ -31,13 +33,6 @@ function goHome() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #001c7d;
-}
-
-.n-result {
-  position: fixed;
-  top: calc(45% - 100px);
-  left: calc(50% - 200px);
 }
 
 .illustration {
