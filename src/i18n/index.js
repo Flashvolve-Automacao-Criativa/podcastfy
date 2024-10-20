@@ -2,12 +2,11 @@ import { createI18n } from 'vue-i18n';
 
 import loadLocaleMessages from './locales';
 
-const { en, es, pt } = await loadLocaleMessages();
+const { en, pt } = await loadLocaleMessages();
 
 // Defina suas mensagens de tradução aqui
 const messages = {
   en: en,
-  es: es,
   pt: pt,
 };
 
