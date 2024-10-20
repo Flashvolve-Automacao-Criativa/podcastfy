@@ -1,13 +1,13 @@
 <template>
   <n-config-provider :theme-overrides="themeOverrides">
     <n-layout-content class="main">
-      <router-view />
+      <router-view @updateLanguage="changeLanguage" />
     </n-layout-content>
   </n-config-provider>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, provide, ref } from 'vue';
 
 const themeOverrides = ref({
   "common": {
@@ -16,6 +16,21 @@ const themeOverrides = ref({
     "primaryColorPressed": "#9688f2",
   }
 });
+
+const detectedLocale = navigator.language.split('-')[0];
+const locale = ref(detectedLocale);
+
+onMounted(() => {
+  locale.value = detectedLocale || 'pt';
+});
+
+provide('player', {
+  locale,
+});
+
+const changeLanguage = (language) => {
+  locale.value = language;
+}
 </script>
 
 <style scoped>
