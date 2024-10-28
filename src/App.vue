@@ -41,6 +41,7 @@ function changeLanguage(lang) {
 
 * {
   font-family: 'Rubik', sans-serif;
+  overflow: hidden;
 }
 
 body {
@@ -49,13 +50,13 @@ body {
 
 .n-config-provider {
   height: 100vh;
-  background: #001c7d;
 }
 
 .main {
-  position: absolute;
-  top: 8%;
-  left: calc(50% - 450px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 32px auto;
   max-width: 900px;
 }
 
@@ -70,12 +71,5 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(150, 136, 242, 0.8);
-}
-
-@media screen and (max-width: 768px) {
-  .main {
-    margin: 10px;
-    left: 0;
-  }
 }
 </style>
