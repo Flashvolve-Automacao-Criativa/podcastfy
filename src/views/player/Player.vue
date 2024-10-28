@@ -112,6 +112,7 @@ const changeLanguage = (lang) => {
         emit('updateLanguage', lang);
 
         availableTracks.value = fetchedTracks.value.filter(track => track.locale === lang);
+        currentTrack.value = availableTracks.value[0];
     } else {
         console.error(`Idioma desconhecido: ${lang}`);
     }
