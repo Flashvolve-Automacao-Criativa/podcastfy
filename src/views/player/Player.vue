@@ -25,7 +25,7 @@
                     </n-space>
                 </n-space>
 
-                <n-empty v-if="!fetchedTracks.length">
+                <n-empty v-if="!availableTracks.length">
                     <n-text>{{ t('pages.player.empty') }}</n-text>
                 </n-empty>
                 
@@ -33,7 +33,7 @@
 
             
             <n-space class="playlist-content" v-if="!isMobile">
-                <Playlist :tracks="fetchedTracks" @playTrack="playTrack" />
+                <Playlist :tracks="availableTracks" @playTrack="playTrack" />
             </n-space>
         </n-space>
     </n-space>
@@ -44,18 +44,18 @@
         trigger="click"
         @select="changeLanguage"
         >
-        <n-button>
-            <img :src="currentFlagUrl" alt="Current Language Flag" class="flag-icon">
-        </n-button>
-    </n-dropdown>
-</div>
+            <n-button>
+                <img :src="currentFlagUrl" alt="Current Language Flag" class="flag-icon">
+            </n-button>
+        </n-dropdown>
+    </div>
 
-<MobilePlaylist 
-v-model:show="showMobilePlaylist"
-:tracks="fetchedTracks"
-@playTrack="playTrack"
-@close="handleCloseMobilePlaylist"
-/>
+    <MobilePlaylist 
+    v-model:show="showMobilePlaylist"
+    :tracks="fetchedTracks"
+    @playTrack="playTrack"
+    @close="handleCloseMobilePlaylist"
+    />
 </template>
 
 <script setup>
@@ -75,6 +75,8 @@ import MobilePlaylist from './components/mobile-playlist/MobilePlaylist.vue';
 
 import useListTracks from './hooks/list-tracks/useListTracks';
 const { fetchedTracks, fetchTracksByCompanyId, fetchTrackByUid } = useListTracks(); 
+
+const availableTracks = ref([]);
 
 const emit = defineEmits([ 'updateLanguage']);
 
@@ -108,6 +110,8 @@ const changeLanguage = (lang) => {
     if (languages[lang]) {
         locale.value = lang;
         emit('updateLanguage', lang);
+
+        availableTracks.value = fetchedTracks.value.filter(track => track.locale === lang);
     } else {
         console.error(`Idioma desconhecido: ${lang}`);
     }
@@ -169,6 +173,8 @@ const handleCloseMobilePlaylist = () => showMobilePlaylist.value = false;
 onMounted(async () => {
     await fetchTracksByCompanyId(currentCompanyId.value);
     currentTrack.value = currentUid.value ? await fetchTrackByUid(currentUid.value) : fetchedTracks.value[0];
+
+    availableTracks.value = fetchedTracks.value.filter(track => track.locale === locale.value);
 });
 </script>
 
