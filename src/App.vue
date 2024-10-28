@@ -41,7 +41,7 @@ function changeLanguage(lang) {
 
 * {
   font-family: 'Rubik', sans-serif;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 body {
