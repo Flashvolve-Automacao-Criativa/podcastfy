@@ -102,19 +102,27 @@ const handleUploadChange = async (fileItem) => {
     try {
         const { file } = fileItem;
         if (file?.type.includes('audio')) {
+            
             const processedFilename = file.name
             .replace(/[^a-zA-Z0-9]+/g, '_')
             .replace(/^_+|_+$/g, '')
             .toLowerCase();
-
+            
             if (processedFilename.includes(currentProcessedArtist.value)) {
                 hasUploaded.value = true;
-
+                const pathParts = file.fullPath.split('/');
+                let folderName = pathParts.find(part => part.startsWith('SEMANA')) || file.name;
+                folderName = folderName.replace(/(\d{2})-(\d{2})-(\d{4})/, (match, day, month, year) => {
+                    return `${day}/${month}/${year}`;
+                });                
+                const locale = pathParts.includes('INGLÊS') ? 'en' : 'pt';
+                
                 const trackToRegister = {
-                    title: file.name.replace(/\.[^/.]+$/, ''),
+                    title: folderName,
                     artist: currentArtist.value,
-                    cover: 'https://placehold.co/300x300/001c7d/white?text=Iniciativas ESG e Conquistas Ambientais',
+                    cover: `https://placehold.co/300x300/001c7d/white?text=${folderName}`,
                     company_id: currentCompanyId.value,
+                    locale: locale,
                 };
                 
                 const audioElement = document.createElement('audio');
