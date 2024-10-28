@@ -118,7 +118,6 @@ onMounted(async () => {
 }
 
 .uploader-content {
-    margin-top: 32px;
     padding: 16px;
     border-radius: 8px;
 }
