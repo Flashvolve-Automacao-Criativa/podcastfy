@@ -37,7 +37,7 @@
                     :show-file-list="false"
                     @change="handleUploadChange"
                     >
-                        <n-upload-dragger>
+                        <n-upload-dragger v-if="!hasUploaded">
                             <div>
                                 <svg 
                                 xmlns="http://www.w3.org/2000/svg" 
@@ -57,6 +57,12 @@
                                 Clique ou arraste e solte a pasta aqui para fazer o upload.
                             </n-text>
                         </n-upload-dragger>
+
+                        <n-space v-else>
+                            <n-typography>
+                                <n-h2 class="title-text" style="color: #9688f2;">Arquivos enviados com sucesso!</n-h2>
+                            </n-typography>
+                        </n-space>
                     </n-upload>
                 </n-space>
             </n-space>
@@ -71,13 +77,15 @@ import axios from 'axios';
 import useListArtists from './hooks/list-artists/useListArtists';
 const { fetchedArtists, fetchArtistsByCompanyId } = useListArtists(); 
 
+import useRegisterTrack from './hooks/register-track/useRegisterTrack';
+const { registerTrack } = useRegisterTrack(); 
+
 const isLoading = ref(false);
+const hasUploaded = ref(false);
 
 const currentCompanyId = ref(6);
 const currentArtist = ref(null);
 const currentProcessedArtist = ref(null);
-
-const testCount = ref(0);
 
 const updateCurrentArtist = (artist) => {
     currentArtist.value = artist;
@@ -89,11 +97,9 @@ const updateCurrentArtist = (artist) => {
 }
 
 const handleUploadChange = async (fileItem) => {
-    testCount.value += 1;    
     isLoading.value = true;
     
     try {
-        // console.clear()
         const { file } = fileItem;
         if (file?.type.includes('audio')) {
             const processedFilename = file.name
@@ -102,6 +108,8 @@ const handleUploadChange = async (fileItem) => {
             .toLowerCase();
 
             if (processedFilename.includes(currentProcessedArtist.value)) {
+                hasUploaded.value = true;
+
                 const trackToRegister = {
                     title: file.name.replace(/\.[^/.]+$/, ''),
                     artist: currentArtist.value,
@@ -109,18 +117,15 @@ const handleUploadChange = async (fileItem) => {
                     company_id: currentCompanyId.value,
                 };
                 
-                const urlAudio = URL.createObjectURL(file.file);
-                
                 const audioElement = document.createElement('audio');
-                audioElement.src = urlAudio;
+                audioElement.src = URL.createObjectURL(file.file);
                 audioElement.onloadedmetadata = () => {
                     const duration = Math.ceil(audioElement.duration);
                     trackToRegister.duration = duration;
                 }
 
-                await uploadAudioToCloudnary(urlAudio);
-
-                console.log('trackToRegister: ', trackToRegister);
+                trackToRegister.src = await uploadAudioToCloudnary(file.file);
+                await registerTrack(trackToRegister);
             }
         }
     } catch (error) {
@@ -130,9 +135,22 @@ const handleUploadChange = async (fileItem) => {
     }
 }
 
-const uploadAudioToCloudnary = async (url) => {
-    console.log('Uploading audio to Cloudnary...');
-    console.log('url: ', url);
+const uploadAudioToCloudnary = async (fileItem) => {
+    const formData = new FormData();
+    formData.append('file', fileItem);
+    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+    formData.append('api_key', import.meta.env.VITE_CLOUDINARY_API_KEY);
+
+    const { data: cloudUrl } = await axios.post(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/upload`, formData,
+        { 
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            } 
+        }
+    );
+
+    return cloudUrl.secure_url;
 }
 
 onMounted(async () => {
