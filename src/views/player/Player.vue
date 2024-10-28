@@ -277,6 +277,10 @@ onMounted(async () => {
         flex-flow: column nowrap !important;
     }
     
+    .player-content img {
+        width: 100%;
+    }
+
     .playlist-content {
         display: none !important;
     }
