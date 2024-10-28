@@ -7,6 +7,11 @@ const routes = [
         component: () => import('../views/player/Player.vue'),
     },
     {
+        path: '/uploader/:uid?',
+        name: 'Uploader',
+        component: () => import('../views/uploader/Uploader.vue'),
+    },
+    {
         path: '/:catchAll(.*)',
         component: () => import('../views/errors/not-found/NotFound.vue'),
         name: 'NotFound',
