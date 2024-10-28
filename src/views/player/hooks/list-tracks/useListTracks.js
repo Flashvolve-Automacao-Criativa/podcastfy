@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import  { supabase } from '../../../providers/supabase';
+import  { supabase } from '../../../../providers/supabase';
 
 /**
  * Hook para gerenciar a lista de faixas (tracks) utilizando Supabase.
