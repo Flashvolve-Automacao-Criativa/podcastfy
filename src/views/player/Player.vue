@@ -73,7 +73,7 @@ import Playlist from './components/playlist/Playlist.vue';
 import PlyrAudio from './components/plyraudio/PlyrAudio.vue';
 import MobilePlaylist from './components/mobile-playlist/MobilePlaylist.vue';
 
-import useListTracks from './hooks/useListTracks';
+import useListTracks from './hooks/list-tracks/useListTracks';
 const { fetchedTracks, fetchTracksByCompanyId, fetchTrackByUid } = useListTracks(); 
 
 const emit = defineEmits([ 'updateLanguage']);
