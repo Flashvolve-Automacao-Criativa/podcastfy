@@ -39,9 +39,9 @@ const useListTracks = () => {
     }
 
     /**
-     * Ordena as faixas por data de criação.
+     * Ordena as faixas por título - referente a data de criação (SEMANA/WEEK X - DD/MM/AAAA).
      * @param {Array<Object>} tracks - Array de faixas a serem ordenadas.
-     * @returns {Array<Object>} Retorna as faixas ordenadas por data de criação.
+     * @returns {Array<Object>} Retorna as faixas ordenadas por título - referente a data de criação (SEMANA/WEEK X - DD/MM/AAAA).
     */
     const orderTracksByTitle = (tracks) => {
         return tracks.sort((a, b) => {
