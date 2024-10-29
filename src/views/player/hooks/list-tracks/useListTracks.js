@@ -32,10 +32,23 @@ const useListTracks = () => {
     const fetchTracksByCompanyId = async (companyId) => {
         try {
             const { data: tracks, error } = await supabase.from('tracks').select('*').eq('company_id', companyId);
-            fetchedTracks.value = tracks;
+            fetchedTracks.value = orderTracksByTitle(tracks);
         } catch (error) {
             handleRequestError('fetchTracksByCompanyId', error);
         }
+    }
+
+    /**
+     * Ordena as faixas por data de criação.
+     * @param {Array<Object>} tracks - Array de faixas a serem ordenadas.
+     * @returns {Array<Object>} Retorna as faixas ordenadas por data de criação.
+    */
+    const orderTracksByTitle = (tracks) => {
+        return tracks.sort((a, b) => {
+            if (b.title < a.title) return -1;
+            if (b.title > a.title) return 1;
+            return 0;
+        });
     }
 
     /**
